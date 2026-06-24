@@ -8,7 +8,7 @@ export const useApplications = () =>
 	useQuery({
 		queryKey: QUERY_KEY,
 		queryFn: () => client.get<Application[]>('/applications').then((r) => r.data),
-	})
+	});
 
 export const useCreateApplication = () => {
 	const queryClient = useQueryClient();
@@ -21,7 +21,7 @@ export const useCreateApplication = () => {
 }
 
 export const useUpdateApplication = () => {
-	const queryClient = useQueryClient()
+	const queryClient = useQueryClient();
 	return useMutation({
 		mutationFn: ({ id, data }: { id: string, data: Partial<CreateApplicationInput> }) =>
 			client.put<Application>(`/applications/${id}`, data).then((r) => r.data),
@@ -30,7 +30,7 @@ export const useUpdateApplication = () => {
 }
 
 export const useDeleteApplication = () => {
-	const queryClient = useQueryClient()
+	const queryClient = useQueryClient();
 	return useMutation({
 		mutationFn: (id: string) => client.delete(`/applications/${id}`),
 		onSuccess: () => queryClient.invalidateQueries({ queryKey: QUERY_KEY }),

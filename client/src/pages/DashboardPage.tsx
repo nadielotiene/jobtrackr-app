@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApplications, useDeleteApplication } from '../hooks/useApplications';
+import StatsBar from '../components/StatsBar';
+import { useStats } from '../hooks/useStats';
 import StatusBadge from '../components/StatusBadge';
-import ApplicationForm from '../components/ApplicationForm'
+import ApplicationForm from '../components/ApplicationForm';
 import type { Application } from '../types';
 
 export default function DashboardPage() {
   const navigate = useNavigate();
   const { data: applications, isLoading } = useApplications();
+  const { total, responseRate, interviews, offers } = useStats(applications);
   const deleteApp = useDeleteApplication();
 
   const [showForm, setShowForm]   = useState(false);
@@ -43,6 +46,13 @@ export default function DashboardPage() {
       {/* Main content */}
       <main className="max-w-5xl mx-auto px-6 py-8">
         {/* mx-auto = center horizontally | max-w-5xl = cap the width */}
+
+        <StatsBar 
+          total={total}
+          responseRate={responseRate}
+          interviews={interviews}
+          offers={offers}
+        />
 
         {isLoading && (
           <p className="text-gray-400 text-sm">Loading...</p>

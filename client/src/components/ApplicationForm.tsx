@@ -17,11 +17,11 @@ export default function ApplicationForm({ onClose, existing }: Props) {
 		// slice(0,10) trims the ISO string to just YYYY-MM-DD for the date input
 	);
 	const [notes, setNotes]              = useState(existing?.notes ?? '');
-	const [contactName, setContactName]  = useState(existing?.contactName ?? '')
+	const [contactName, setContactName]  = useState(existing?.contactName ?? '');
 
 	const create = useCreateApplication();
 	const update = useUpdateApplication();
-	const isPending = create.isPending || update.isPending
+	const isPending = create.isPending || update.isPending;
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
@@ -30,10 +30,10 @@ export default function ApplicationForm({ onClose, existing }: Props) {
 			jobUrl: jobUrl || undefined,
 			notes: notes || undefined,
 			contactName: contactName || undefined,
-		}
+		};
 
 		if (existing) {
-			update.mutate({ id: existing.id, data}, { onSuccess: onClose })
+			update.mutate({ id: existing.id, data}, { onSuccess: onClose });
 		} else {
 			create.mutate(data, { onSuccess: onClose });
 		}
@@ -61,7 +61,7 @@ export default function ApplicationForm({ onClose, existing }: Props) {
 								/>
 						</div>
 						<div>
-							<label className="block text-sm font-mediium text-gray-700 mb-1">Role *</label>
+							<label className="block text-sm font-medium text-gray-700 mb-1">Role *</label>
 							<input 
 								value={role}
 								onChange={(e) => setRole(e.target.value)}
@@ -77,7 +77,7 @@ export default function ApplicationForm({ onClose, existing }: Props) {
 							<select
 								value={status}
 								onChange={(e) => setStatus(e.target.value as Status)}
-								className="w-full border border-gray-300 rounded-lg px-3  py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+								className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
 							>
 								<option value="applied">Applied</option>
 								<option value="interview">Interview</option>
@@ -91,7 +91,7 @@ export default function ApplicationForm({ onClose, existing }: Props) {
 								type="date"
 								value={appliedDate}
 								onChange={(e) => setAppliedDate(e.target.value)}
-								className="w-full border border-gray-300 rounded-lg px3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" 
+								className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" 
 								required
 							/>
 						</div>
@@ -103,7 +103,7 @@ export default function ApplicationForm({ onClose, existing }: Props) {
 							type="url" 
 							value={jobUrl}
 							onChange={(e) => setJobUrl(e.target.value)}
-							className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue500" 
+							className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" 
 							placeholder="https://..."
 						/>
 					</div>
@@ -113,7 +113,7 @@ export default function ApplicationForm({ onClose, existing }: Props) {
 						<input 
 							value={contactName}
 							onChange={(e) => setContactName(e.target.value)}
-							className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue500" 
+							className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" 
 							placeholder="Recruiter or hiring manager"
 						/>
 					</div>
@@ -124,7 +124,7 @@ export default function ApplicationForm({ onClose, existing }: Props) {
 							value={notes}
 							onChange={(e) => setNotes(e.target.value)}
 							rows={3}
-							className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue500 resize-none" 
+							className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none" 
 							placeholder="Any notes about this application..."
 						/>
 					</div>
@@ -133,7 +133,7 @@ export default function ApplicationForm({ onClose, existing }: Props) {
 						<button 
 							type="button"
 							onClick={onClose}
-							className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800"
+							className="px-4 py-2 text-xsm text-gray-600 hover:text-gray-800"
 						>
 							Cancel
 						</button>
