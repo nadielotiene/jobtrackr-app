@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import FilterBar from '../components/FilterBar'
+import { useFilteredApplications } from '../hooks/useFilteredApplications'
+import type { Status } from '../types'
 import { useApplications, useDeleteApplication } from '../hooks/useApplications';
 import StatsBar from '../components/StatsBar';
 import { useStats } from '../hooks/useStats';
@@ -12,9 +15,14 @@ export default function DashboardPage() {
   const { data: applications, isLoading } = useApplications();
   const { total, responseRate, interviews, offers } = useStats(applications);
   const deleteApp = useDeleteApplication();
-
-  const [showForm, setShowForm]   = useState(false);
-  const [editing, setEditing]     = useState<Application | undefined>();
+  
+  const [showForm, setShowForm]         = useState(false);
+  const [editing, setEditing]           = useState<Application | undefined>();
+  const [search, setSearch]             = useState('')
+  const [statusFilter, setStatusFilter] = useState<Status | 'all'>('all')
+  const [sortBy, setSortBy]             = useState<'date' | 'status'>('date')
+  
+  const filtered = useFilteredApplications(applications, { search, statusFilter, sortBy })
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -54,6 +62,15 @@ export default function DashboardPage() {
           offers={offers}
         />
 
+        <FilterBar
+          search={search}
+          onSearchChange={setSearch}
+          statusFilter={statusFilter}
+          onStatusChange={setStatusFilter}
+          sortBy={sortBy}
+          onSortChange={setSortBy}
+        />
+
         {isLoading && (
           <p className="text-gray-400 text-sm">Loading...</p>
         )}
@@ -66,8 +83,8 @@ export default function DashboardPage() {
         )}
 
         {/* Applications table */}
-        {applications && applications.length > 0 && (
-          <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        {filtered.length > 0 && (
+          <div className="bg-white rounded-xl border border-gray-200 overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>
@@ -81,17 +98,17 @@ export default function DashboardPage() {
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {/* divide-y = adds a border between each row */}
-                {applications.map((app) => (
+                {filtered.map((app) => (
                   <tr key={app.id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-4 py-3 font-medium text-gray-800">{app.company}</td>
-                    <td className="px-4 py3 text-gray-600">{app.role}</td>
-                    <td className="px-4 py3">
+                    <td className="px-4 py-3 text-gray-600">{app.role}</td>
+                    <td className="px-4 py-3">
                       <StatusBadge status={app.status} />
                     </td>
                     <td className="px-4 py-3 text-gray-500">
                       {new Date(app.appliedDate).toLocaleDateString()}
                     </td>
-                    <td className="px-4 py-3 text-gray-400 max-w-xs-truncate">
+                    <td className="px-4 py-3 text-gray-400 max-w-xs truncate">
                       {/* truncate = cuts off long text with "..." */}
                       {app.notes ?? '-'}
                     </td>
