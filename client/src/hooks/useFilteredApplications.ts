@@ -1,7 +1,5 @@
 import { useMemo } from 'react'
 import type { Application, Status } from '../types'
-import { useApplications } from './useApplications';
-import { useSearchParams } from 'react-router-dom';
 
 interface Filters {
   search: string
