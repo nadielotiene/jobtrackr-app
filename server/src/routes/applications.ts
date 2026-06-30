@@ -90,7 +90,7 @@ router.put('/:id', async (req: Request, res: Response) => {
 });
 
 // DELETE application
-router.delete('/id', async (req: Request, res: Response) => {
+router.delete('/:id', async (req: Request, res: Response) => {
 	const id = req.params.id as string;
 	const existing = await prisma.application.findUnique({
 		where: { id },
