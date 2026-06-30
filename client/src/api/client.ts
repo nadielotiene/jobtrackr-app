@@ -1,11 +1,9 @@
 import axios from 'axios';
 
 const client = axios.create({
-    baseURL: 'http://localhost:3001/api',
+    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3001/api',
 });
 
-// Interceptor — runs before every request
-// Think of it as middleware but for the frontend
 client.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');
     if (token) {
