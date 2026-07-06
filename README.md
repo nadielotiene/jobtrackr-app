@@ -2,8 +2,8 @@
 
 A full-stack job application tracker built to manage and monitor every role during a job search. Track applications, update statuses, add notes, and monitor progress through a clean dashboard.
 
-🚀 **[Live Demo](https://jobtrackr-ebon.vercel.app)**
-![JobTrackr Dashboard](screenshots/home.webp)
+**[Live Demo](https://jobtrackr-ebon.vercel.app)**
+[![JobTrackr Dashboard](screenshots/home.webp)](https://jobtrackr-ebon.vercel.app)
 
 ## Features
 
