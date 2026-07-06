@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import authRoutes from './routes/auth';
 import applicationRoutes from './routes/applications';
 
+dotenv.config({ path: '.env.local' });
 dotenv.config();
 
 const app = express();
