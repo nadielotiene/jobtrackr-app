@@ -5,7 +5,7 @@ interface StatCardProps {
 }
 
 const StatCard = ({ label, value, color }: StatCardProps) => (
-  <div className="bg-white rounded-xl border border-gray-200 px-6 py-4 flex flex-col gap-1">
+  <div className="bg-white rounded-xl border border-gray-200 px-6 py-4 flex flex-col justify-between gap-1">
     <span className="text-xs font-medium text-gray-400 uppercase tracking-wide">
       {label}
     </span>
@@ -24,7 +24,7 @@ interface Props {
 
 export default function StatsBar({ total, responseRate, interviews, offers }: Props) {
   return (
-    <div className="grid grid-cols-4 gap-4 mb-8">
+    <div className="grid grid-cols-1 min-[300px]:grid-cols-2 min-[600px]:grid-cols-4 gap-4 mb-8">
       <StatCard label="Total Applied"     value={total}              color="text-gray-800" />
       <StatCard label="Response Rate"     value={`${responseRate}%`} color="text-blue-600" />
       <StatCard label="Active Interviews" value={interviews}         color="text-yellow-500" />
