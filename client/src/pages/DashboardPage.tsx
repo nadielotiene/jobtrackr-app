@@ -19,10 +19,12 @@ export default function DashboardPage() {
   const [showForm, setShowForm]         = useState(false);
   const [editing, setEditing]           = useState<Application | undefined>();
   const [search, setSearch]             = useState('')
-  const [statusFilter, setStatusFilter] = useState<Status | 'all'>('all')
-  const [sortBy, setSortBy]             = useState<'date' | 'status'>('date')
+  const [statusFilter, setStatusFilter] = useState<Status | 'all'>('all');
+  const [sortBy, setSortBy]             = useState<'date' | 'status'>('date');
   
-  const filtered = useFilteredApplications(applications, { search, statusFilter, sortBy })
+  const filtered = useFilteredApplications(applications, { search, statusFilter, sortBy });
+
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -36,6 +38,7 @@ export default function DashboardPage() {
       <header className="bg-white border-b border-gray-200 px-6 py-4 flex flex-col min-[400px]:flex-row items-center justify-between">
         <h1 className="text-[1.5rem] font-bold pb-4 min-[400px]:pb-0 text-gray-800">JobTrackr</h1>
         <div className="flex items-center gap-4">
+          <span className="text-sm text-gray-500">{user.email}</span>
           <button 
             onClick={() => { setEditing(undefined); setShowForm(true) }}
             className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors"
