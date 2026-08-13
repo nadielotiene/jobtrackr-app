@@ -3,14 +3,13 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/auth';
 import applicationRoutes from './routes/applications';
-import { PrismaClient } from '../generated/prisma';
+import prisma from './lib/prisma';
 
 dotenv.config({ path: '.env.local' });
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-const prisma = new PrismaClient();
 
 app.use(cors({ 
   origin: ['http://localhost:5173', 'http://localhost:5174', 'https://jobtrackr-ebon.vercel.app'] 
