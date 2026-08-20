@@ -22,7 +22,7 @@ app.use((req, _res, next) => {
 
 app.get('/health', async (_req, res) => {
   await prisma.$queryRaw`SELECT 1`;
-  res.json({ status: 'ok' });
+  res.json(200).end();
 });
 
 app.use('/api/auth', authRoutes);
